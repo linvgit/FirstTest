@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Simple To-Do List</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 400px;
+      margin: 40px auto;
+      padding: 10px;
+      background: #f9f9f9;
+    }
+    input, button {
+      padding: 10px;
+      font-size: 16px;
+    }
+    input {
+      width: 70%;
+      margin-right: 5px;
+    }
+    ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+    li {
+      background: #e3e3e3;
+      margin: 5px 0;
+      padding: 10px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    li.completed {
+      text-decoration: line-through;
+      color: gray;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>To-Do List</h1>
+
+  <input type="text" id="todoInput" placeholder="Γράψε εδώ το task" />
+  <button id="addButton">Πρόσθεσε</button>
+
+  <ul id="todoList"></ul>
+
+  <script src="script.js"></script>
+</body>
+</html>
