@@ -1,18 +1,30 @@
 body {
-  font-family: Arial, sans-serif;
-  padding: 20px;
-  background-color: #0c0000;
-}
-
-button {
-background-color: #000000; /* μπλε */
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: #005f73; /* πιο σκούρο μπλε */
-}
+      font-family: Arial, sans-serif;
+      max-width: 400px;
+      margin: 40px auto;
+      padding: 10px;
+      background: #000000;
+    }
+    input, button {
+      padding: 10px;
+      font-size: 16px;
+    }
+    input {
+      width: 70%;
+      margin-right: 5px;
+    }
+    ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+    li {
+      background: #c90e0e;
+      margin: 5px 0;
+      padding: 10px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    li.completed {
+      text-decoration: line-through;
+      color: gray;
+    }
