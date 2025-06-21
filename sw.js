@@ -34,15 +34,6 @@ self.addEventListener('activate', event => {
   );
 });
 
-// Fetch event: serve cached ή fetch αν δεν υπάρχει
-self.addEventListener('fetch', event => {
-  event.respondWith(
-    caches.match(event.request).then(cachedRes => {
-      return cachedRes || fetch(event.request);
-    })
-  );
-});
-
 // Fetch event: serve from cache first, fallback to network
 self.addEventListener('fetch', event => {
   event.respondWith(
