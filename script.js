@@ -36,3 +36,22 @@ input.addEventListener('keypress', (e) => {
     addTodo();
   }
 });
+
+// --- Εδώ προσθέτεις τον κώδικα για τον service worker ---
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js').then(reg => {
+    reg.onupdatefound = () => {
+      const newWorker = reg.installing;
+      newWorker.onstatechange = () => {
+        if (newWorker.state === 'installed') {
+          if (navigator.serviceWorker.controller) {
+            console.log('Νέα έκδοση διαθέσιμη, ανανέωση σε 3 δευτερόλεπτα...');
+            setTimeout(() => {
+              window.location.reload();
+            }, 3000); // μικρή καθυστέρηση για να μη σπάσει απότομα η UX
+          }
+        }
+      };
+    };
+  });
+}
