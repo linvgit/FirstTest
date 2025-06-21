@@ -3,7 +3,7 @@ body {
       max-width: 400px;
       margin: 40px auto;
       padding: 10px;
-      background: #e40707;
+      background: #bda8a8;
     }
     input, button {
       padding: 10px;
@@ -18,7 +18,7 @@ body {
       padding-left: 0;
     }
     li {
-      background: #c90e0e;
+      background: #fdfdfd;
       margin: 5px 0;
       padding: 10px;
       cursor: pointer;
@@ -26,5 +26,5 @@ body {
     }
     li.completed {
       text-decoration: line-through;
-      color: gray;
+      color: rgb(160, 5, 5);
     }
