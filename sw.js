@@ -2,7 +2,7 @@ const CACHE_NAME = 'todo-app-cache-v1';
 const FILES_TO_CACHE = [
   '/',
   '/index.html',
-  '/style.css',
+  '/styles.css',
   '/script.js',
   '/manifest.json',
   '/icons/obrela-192x192.png',
