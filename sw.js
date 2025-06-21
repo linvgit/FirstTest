@@ -1,4 +1,4 @@
-const CACHE_NAME = 'todo-app-cache-v7';
+const CACHE_NAME = 'todo-app-cache-v8';
 const FILES_TO_CACHE = [
   '/FirstTest/',
   '/FirstTest/index.html',
