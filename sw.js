@@ -1,14 +1,15 @@
 const CACHE_NAME = 'todo-app-cache-v4';
 const FILES_TO_CACHE = [
-  '/',
-  '/index.html',
-  '/styles.css',
-  '/script.js',
-  '/manifest.json',
-  '/icons/obrela-192x192.png',
-  '/icons/obrela-512x512.png',
-  '/favicon.ico'
+  '/FirstTest/',
+  '/FirstTest/index.html',
+  '/FirstTest/styles.css',
+  '/FirstTest/script.js',
+  '/FirstTest/manifest.json',
+  '/FirstTest/icons/obrela-192x192.png',
+  '/FirstTest/icons/obrela-512x512.png',
+  '/FirstTest/favicon.ico'
 ];
+
 
 // Install event: cache files
 self.addEventListener('install', event => {
