@@ -1,14 +1,40 @@
 <!DOCTYPE html>
 <html lang="el">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Το Πρώτο Μου Site</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Σημειωματάριο PWA</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
 </head>
 <body>
+  <div class="container">
+    <h1>📒 Το Σημειωματάριό μου</h1>
 
-  <h1>Γεια σου, Κόσμε!</h1>
-  <p>Αυτό είναι το πρώτο μου HTML αρχείο.</p>
+    <form id="note-form">
+      <input type="text" id="note-title" placeholder="Τίτλος σημείωσης" required>
+      <textarea id="note-content" placeholder="Γράψε κάτι..." rows="5" required></textarea>
+      <button type="submit">Αποθήκευση</button>
+    </form>
+
+    <hr>
+
+    <h2>Οι Σημειώσεις μου:</h2>
+    <div id="notes-list"></div>
+  </div>
+
+  <!-- travaei to .js arxeio -->
+  <script src="script.js"></script>
+
+  <!-- worker gia offline litourgia -->
+  <script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js')
+      .then(() => console.log('✅ Service Worker registered'))
+      .catch((error) => console.error('❌ SW registration failed:', error));
+  }
+</script>
+
 
 </body>
 </html>
