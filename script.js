@@ -69,3 +69,20 @@ function refreshNotes() {
   notesList.innerHTML = '';
   loadNotes();
 }
+
+// Αναζήτηση
+const searchInput = document.getElementById('search-input');
+
+searchInput.addEventListener('input', () => {
+  const keyword = searchInput.value.toLowerCase();
+  const notes = document.querySelectorAll('.note');
+
+  notes.forEach(note => {
+    const title = note.querySelector('strong').textContent.toLowerCase();
+    const content = note.querySelector('p').textContent.toLowerCase();
+
+    const match = title.includes(keyword) || content.includes(keyword);
+
+    note.style.display = match ? 'block' : 'none';
+  });
+});

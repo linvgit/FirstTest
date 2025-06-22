@@ -30,6 +30,16 @@ form {
   gap: 12px;
 }
 
+#search-input {
+  width: 100%;
+  padding: 10px;
+  font-size: 1em;
+  margin-bottom: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+
 input[type="text"],
 textarea {
   width: 100%;
