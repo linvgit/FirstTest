@@ -12,6 +12,20 @@ const searchInput = document.getElementById('search-input');
 const signupEmailInput = document.getElementById('signup-email');
 const signupPasswordInput = document.getElementById('signup-password');
 const btnSignup = document.getElementById('btn-signup');
+const { data, error } = await supabase.auth.signUp({ email, password });
+
+if (error) {
+  console.log('Σφάλμα εγγραφής:', error.message);
+  alert('Σφάλμα εγγραφής: ' + error.message);
+} else {
+  console.log('Εγγραφή επιτυχής, τσέκαρε το email για επιβεβαίωση');
+  alert('Επιτυχής εγγραφή! Έλεγξε το email σου για επιβεβαίωση.');
+}
+if (data.user && !data.user.email_confirmed_at) {
+  alert('Πρέπει να επιβεβαιώσεις το email σου πριν συνδεθείς');
+}
+
+
 
 
 // Authentication UI (πρόσθεσε αν θες input και κουμπιά login/signup)
