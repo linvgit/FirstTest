@@ -12,7 +12,7 @@ const searchInput = document.getElementById('search-input');
 const signupEmailInput = document.getElementById('signup-email');
 const signupPasswordInput = document.getElementById('signup-password');
 const btnSignup = document.getElementById('btn-signup');
-const { data, error } = await supabase.auth.signUp({ email, password });
+
 
 btnSignup.addEventListener('click', async () => {
   const email = signupEmailInput.value.trim();
