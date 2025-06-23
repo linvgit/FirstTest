@@ -1,6 +1,8 @@
 // Supabase setup
 const SUPABASE_URL = 'https://alatqjskbjoevrdgqorr.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFsYXRxanNrYmpvZXZyZGdxb3JyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA2NjUxMzAsImV4cCI6MjA2NjI0MTEzMH0.eoG5KeVV65xxPJmgU9-HA2dFDJVmfXTmCcf8awYaT58';
+
+// Αφού φορτώθηκε το supabase-js (v2), το global object είναι supabase
 const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // DOM elements
@@ -17,6 +19,10 @@ const emailInput = document.getElementById('email');
 const passwordInput = document.getElementById('password');
 const btnLogin = document.getElementById('btn-login');
 const btnLogout = document.getElementById('btn-logout');
+
+const notesHeader = document.getElementById('notes-header');
+const signupDiv = document.getElementById('signup');
+const authDiv = document.getElementById('auth');
 
 // --- SIGNUP ---
 btnSignup.addEventListener('click', async () => {
@@ -37,7 +43,6 @@ btnSignup.addEventListener('click', async () => {
 
   alert('Επιτυχής εγγραφή! Έλεγξε το email σου για επιβεβαίωση.');
 
-  // Καθάρισμα πεδίων
   signupEmailInput.value = '';
   signupPasswordInput.value = '';
 });
@@ -59,8 +64,9 @@ btnLogin.addEventListener('click', async () => {
     return;
   }
 
-  // Έλεγχος αν έχει επιβεβαιωθεί το email
-  if (!data.user.email_confirmed_at) {
+  // Σημείωση: το πεδίο email_confirmed_at δεν είναι πάντα διαθέσιμο εδώ,
+  // συνήθως το διαχειρίζεται ο server. Μπορείς να εμπιστευτείς το status του user.
+  if (!data.user || !data.user.email_confirmed_at) {
     alert('Πρέπει να επιβεβαιώσεις το email σου πριν συνδεθείς.');
     await supabase.auth.signOut();
     return;
@@ -81,36 +87,35 @@ btnLogout.addEventListener('click', async () => {
 
 // --- Εμφάνιση/απόκρυψη στοιχείων ανάλογα με κατάσταση σύνδεσης ---
 async function toggleAuthUI() {
-  const { data: { user } } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   if (user) {
-    // Κρύβουμε τα inputs σύνδεσης/εγγραφής
-    document.getElementById('signup').style.display = 'none';
-    document.getElementById('auth').style.display = 'none';
+    signupDiv.style.display = 'none';
+    authDiv.style.display = 'none';
     btnLogout.style.display = 'inline-block';
-
-    // Εμφάνιση φόρμας σημειώσεων και αναζήτησης
     form.style.display = 'block';
     searchInput.style.display = 'block';
+    notesHeader.style.display = 'block';
 
     loadNotes();
   } else {
-    // Εμφάνιση inputs σύνδεσης/εγγραφής
-    document.getElementById('signup').style.display = 'flex';
-    document.getElementById('auth').style.display = 'flex';
+    signupDiv.style.display = 'flex';
+    authDiv.style.display = 'flex';
     btnLogout.style.display = 'none';
-
-    // Κρύβουμε φόρμα σημειώσεων και αναζήτησης
     form.style.display = 'none';
     searchInput.style.display = 'none';
-
+    notesHeader.style.display = 'none';
     notesList.innerHTML = '';
   }
 }
 
 // --- Φόρτωση σημειώσεων ---
 async function loadNotes() {
-  const { data: { user } } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
   if (!user) return;
 
   const { data, error } = await supabase
@@ -134,16 +139,30 @@ function displayNote(note) {
   noteDiv.className = 'note';
 
   noteDiv.innerHTML = `
-    <strong>${note.title}</strong>
-    <p>${note.content}</p>
-    <button onclick="deleteNote('${note.id}')">Διαγραφή</button>
+    <strong>${escapeHtml(note.title)}</strong>
+    <p>${escapeHtml(note.content)}</p>
+    <button data-id="${note.id}" class="delete-btn">Διαγραφή</button>
   `;
 
   notesList.prepend(noteDiv);
 }
 
+// Ασφαλής αποφυγή XSS (αν θες προαιρετικά)
+function escapeHtml(text) {
+  if (!text) return '';
+  return text.replace(/[&<>"']/g, (m) => {
+    return {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;',
+    }[m];
+  });
+}
+
 // --- Προσθήκη νέας σημείωσης ---
-form.addEventListener('submit', async e => {
+form.addEventListener('submit', async (e) => {
   e.preventDefault();
 
   const title = titleInput.value.trim();
@@ -154,7 +173,9 @@ form.addEventListener('submit', async e => {
     return;
   }
 
-  const { data: { user } } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
   if (!user) {
     alert('Πρέπει να συνδεθείς για να προσθέσεις σημείωση.');
     return;
@@ -175,19 +196,21 @@ form.addEventListener('submit', async e => {
 });
 
 // --- Διαγραφή σημείωσης ---
-async function deleteNote(id) {
-  const { error } = await supabase
-    .from('notes')
-    .delete()
-    .eq('id', id);
+// Χρησιμοποιούμε event delegation για τα κουμπιά διαγραφής
+notesList.addEventListener('click', async (e) => {
+  if (e.target.classList.contains('delete-btn')) {
+    const id = e.target.getAttribute('data-id');
+    if (id) {
+      const { error } = await supabase.from('notes').delete().eq('id', id);
 
-  if (error) {
-    alert('Σφάλμα διαγραφής: ' + error.message);
-    return;
+      if (error) {
+        alert('Σφάλμα διαγραφής: ' + error.message);
+        return;
+      }
+      loadNotes();
+    }
   }
-
-  loadNotes();
-}
+});
 
 // --- Φόρτωση UI κατά το φόρτωμα της σελίδας ---
 window.addEventListener('load', toggleAuthUI);

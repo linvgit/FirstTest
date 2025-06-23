@@ -1,62 +1,54 @@
 <!DOCTYPE html>
 <html lang="el">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Σημειωματάριο PWA</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="manifest" href="manifest.json" />
 </head>
 <body>
   <div class="container">
     <button id="toggle-theme">🌙 Dark Mode</button>
     <h1>📒 Το Σημειωματάριό μου</h1>
 
-<div id="signup">
-  <input type="email" id="signup-email" placeholder="Email για εγγραφή" />
-  <input type="password" id="signup-password" placeholder="Κωδικός" />
-  <button id="btn-signup">Εγγραφή</button>
-</div>
+    <div id="signup">
+      <input type="email" id="signup-email" placeholder="Email για εγγραφή" />
+      <input type="password" id="signup-password" placeholder="Κωδικός" />
+      <button id="btn-signup">Εγγραφή</button>
+    </div>
 
-<!-- Login section -->
-<div id="auth">
-  <input type="email" id="email" placeholder="Email" />
-  <input type="password" id="password" placeholder="Κωδικός" />
-  <button id="btn-login">Σύνδεση</button>
-  <button id="btn-logout" style="display:none;">Αποσύνδεση</button>
-</div>
+    <div id="auth">
+      <input type="email" id="email" placeholder="Email" />
+      <input type="password" id="password" placeholder="Κωδικός" />
+      <button id="btn-login">Σύνδεση</button>
+      <button id="btn-logout" style="display:none;">Αποσύνδεση</button>
+    </div>
 
-
-
-    <form id="note-form">
-      <input type="text" id="note-title" placeholder="Τίτλος σημείωσης" required>
+    <form id="note-form" style="display:none;">
+      <input type="text" id="note-title" placeholder="Τίτλος σημείωσης" required />
       <textarea id="note-content" placeholder="Γράψε κάτι..." rows="5" required></textarea>
       <button type="submit">Αποθήκευση</button>
     </form>
 
-    <hr>
+    <hr />
 
-    <h2>Οι Σημειώσεις μου:</h2>
-    <input type="text" id="search-input" placeholder="🔍 Αναζήτηση σημειώσεων...">
+    <h2 style="display:none;" id="notes-header">Οι Σημειώσεις μου:</h2>
+    <input type="text" id="search-input" placeholder="🔍 Αναζήτηση σημειώσεων..." style="display:none;" />
     <div id="notes-list"></div>
   </div>
 
-  <!-- travaei to .js arxeio -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-<script src="script.js"></script>
+  <!-- ΜΟΝΟ ΕΝΑ ΦΟΡΤΩΜΑ ΤΗΣ ΒΙΒΛΙΟΘΗΚΗΣ -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="script.js"></script>
 
-
-  <!-- worker gia offline litourgia -->
+  <!-- Service Worker registration -->
   <script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('sw.js')
-      .then(() => console.log('✅ Service Worker registered'))
-      .catch((error) => console.error('❌ SW registration failed:', error));
-  }
-</script>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-
-
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js')
+        .then(() => console.log('✅ Service Worker registered'))
+        .catch((error) => console.error('❌ SW registration failed:', error));
+    }
+  </script>
 </body>
 </html>
