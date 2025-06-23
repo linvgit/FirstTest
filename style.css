@@ -39,7 +39,6 @@ form {
   border-radius: 8px;
 }
 
-
 input[type="text"],
 textarea {
   width: 100%;
@@ -140,4 +139,97 @@ body.dark button {
 body.dark #toggle-theme {
   background: #eee;
   color: #111;
+}
+
+/* Container login/logout */
+#auth {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+/* Inputs email και password στο login */
+#auth input[type="email"],
+#auth input[type="password"] {
+  width: 100%;
+  padding: 12px;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+/* Κουμπιά σύνδεσης / αποσύνδεσης */
+#auth button {
+  padding: 12px;
+  font-size: 1em;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #4caf50;
+  color: white;
+  transition: background 0.2s;
+}
+
+#auth button:hover {
+  background-color: #45a049;
+}
+
+/* Κουμπί αποσύνδεσης ξεχωριστό χρώμα */
+#btn-logout {
+  background-color: crimson;
+}
+
+#btn-logout:hover {
+  background-color: darkred;
+}
+
+/* Signup section */
+#signup {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+#signup input[type="email"],
+#signup input[type="password"] {
+  width: 100%;
+  padding: 12px;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+#signup button {
+  padding: 12px;
+  font-size: 1em;
+  background-color: #2196F3; /* Μπλε για να ξεχωρίζει από το login */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+#signup button:hover {
+  background-color: #1976D2;
+}
+
+/* Dark mode για signup */
+body.dark #signup input,
+body.dark #signup button {
+  background: #2c2c2c;
+  color: #fff;
+  border: 1px solid #444;
+}
+
+body.dark #signup button {
+  background-color: #2196F3;
+}
+
+body.dark #signup button:hover {
+  background-color: #1976D2;
 }

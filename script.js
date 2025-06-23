@@ -9,6 +9,10 @@ const titleInput = document.getElementById('note-title');
 const contentInput = document.getElementById('note-content');
 const notesList = document.getElementById('notes-list');
 const searchInput = document.getElementById('search-input');
+const signupEmailInput = document.getElementById('signup-email');
+const signupPasswordInput = document.getElementById('signup-password');
+const btnSignup = document.getElementById('btn-signup');
+
 
 // Authentication UI (πρόσθεσε αν θες input και κουμπιά login/signup)
 const authDiv = document.createElement('div');

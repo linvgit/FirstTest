@@ -12,6 +12,22 @@
     <button id="toggle-theme">🌙 Dark Mode</button>
     <h1>📒 Το Σημειωματάριό μου</h1>
 
+<div id="signup">
+  <input type="email" id="signup-email" placeholder="Email για εγγραφή" />
+  <input type="password" id="signup-password" placeholder="Κωδικός" />
+  <button id="btn-signup">Εγγραφή</button>
+</div>
+
+<!-- Login section -->
+<div id="auth">
+  <input type="email" id="email" placeholder="Email" />
+  <input type="password" id="password" placeholder="Κωδικός" />
+  <button id="btn-login">Σύνδεση</button>
+  <button id="btn-logout" style="display:none;">Αποσύνδεση</button>
+</div>
+
+
+
     <form id="note-form">
       <input type="text" id="note-title" placeholder="Τίτλος σημείωσης" required>
       <textarea id="note-content" placeholder="Γράψε κάτι..." rows="5" required></textarea>
@@ -29,7 +45,6 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 <script src="script.js"></script>
 
-  <script src="script.js"></script>
 
   <!-- worker gia offline litourgia -->
   <script>
