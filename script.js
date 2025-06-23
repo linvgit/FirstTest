@@ -14,6 +14,31 @@ const signupPasswordInput = document.getElementById('signup-password');
 const btnSignup = document.getElementById('btn-signup');
 const { data, error } = await supabase.auth.signUp({ email, password });
 
+btnSignup.addEventListener('click', async () => {
+  const email = signupEmailInput.value.trim();
+  const password = signupPasswordInput.value.trim();
+
+  if (!email || !password) {
+    alert('Γέμισε email και κωδικό για εγγραφή');
+    return;
+  }
+
+  const { data, error } = await supabase.auth.signUp({ email, password });
+
+  if (error) {
+    console.log('Σφάλμα εγγραφής:', error.message);
+    alert('Σφάλμα εγγραφής: ' + error.message);
+    return;
+  }
+
+  alert('Επιτυχής εγγραφή! Έλεγξε το email σου για επιβεβαίωση.');
+
+  // Καθάρισμα πεδίων
+  signupEmailInput.value = '';
+  signupPasswordInput.value = '';
+});
+
+
 if (error) {
   console.log('Σφάλμα εγγραφής:', error.message);
   alert('Σφάλμα εγγραφής: ' + error.message);
@@ -49,6 +74,12 @@ btnLogin.addEventListener('click', async () => {
   const password = passwordInput.value;
   const { data, error } = await supabase.auth.signInWithPassword({ email, password });
   if (error) return alert('Σφάλμα σύνδεσης: ' + error.message);
+  if (!data.user.email_confirmed_at) {
+  alert('Πρέπει να επιβεβαιώσεις το email σου πριν συνδεθείς.');
+  await supabase.auth.signOut();
+  return;
+}
+
   alert('Επιτυχής σύνδεση!');
   toggleAuthUI();
   loadNotes();
